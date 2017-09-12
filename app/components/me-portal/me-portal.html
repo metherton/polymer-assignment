@@ -1,8 +1,29 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../components/me-drawer/me-drawer.html">
 
 <dom-module id="me-portal">
+    <link rel="stylesheet" href="../../../app/css/main.css" />
+    <link rel="stylesheet" href="../../../app/css/position.css" />
+    <link rel="stylesheet" href="../../../app/css/font.css" />
+    <link rel="stylesheet" href="../../../app/css/skins/default/colors.css" />
+    <link rel="import" href="../../../app/css/skins/default/color-vars.css" />
+
     <template>
-        This is me-portal content
+        <me-drawer class$="{{drawerClasses}}">
+            <div class="logo">
+               Logo here
+            </div>
+            <div class="left-menu p-t-1">
+                <me-list-item position="left" icon="home" url="#!">Home</me-list-item>
+                <me-list-item position="left" icon="account-box" url="#!/profile">Profile</me-list-item>
+            </div>
+            <div class="right-menu">
+                Right menu here
+            </div>
+            <div id="main">
+                Main stuff here
+            </div>
+        </me-drawer>
     </template>
 </dom-module>
 

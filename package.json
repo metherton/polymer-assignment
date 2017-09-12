@@ -3,7 +3,16 @@
   "name": "MartinEthertonPolymerAssignment",
   "private": true,
   "devDependencies": {
-    "express": "^4.12.4"
+    "express": "^4.12.4",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.3",
+    "gulp-filter": "^2.0.2",
+    "gulp-vulcanize": "^6.0.0",
+    "gulp-insert": "^0.4.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-rename": "^1.2.0",
+    "run-sequence": "^1.0.2"
+
   },
   "dependencies": {}
 }
