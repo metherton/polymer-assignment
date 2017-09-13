@@ -1,5 +1,11 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../components/me-drawer/me-drawer.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html"/>
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html" />
+<link rel="import" href="../../../bower_components/iron-ajax/iron-ajax.html" />
+
+<link rel="import" href="../../components/me-drawer/me-drawer.html" />
+<link rel="import" href="../../components/me-flatiron-director/me-flatiron-director.html" />
+<link rel="import" href="../../components/me-list/me-list-item.html"/>
 
 <dom-module id="me-portal">
     <link rel="stylesheet" href="../../../app/css/main.css" />
@@ -15,7 +21,7 @@
             </div>
             <div class="left-menu p-t-1">
                 <me-list-item position="left" icon="home" url="#!">Home</me-list-item>
-                <me-list-item position="left" icon="account-box" url="#!/profile">Profile</me-list-item>
+                <me-list-item position="left" icon="account-box" url="#!/ons">One Name Study</me-list-item>
             </div>
             <div class="right-menu">
                 Right menu here
@@ -24,6 +30,8 @@
                 Main stuff here
             </div>
         </me-drawer>
+        <me-flatiron-director route="{{route}}"></me-flatiron-director>
+        <iron-ajax id="ajax" url="" handle-as="document"></iron-ajax>
     </template>
 </dom-module>
 
@@ -31,6 +39,46 @@
     Polymer({
         is: "me-portal",
         ready:function(){
+        },
+        route: {
+            type: String,
+            value: "",
+            observer: 'routeChanged'
+        },
+        routeChanged: function (newValue, oldValue) {
+            var page = newValue.replace("!", "");
+            var params = page.split("?")[1];
+            var pageName = page.split("?")[0];
+            if (pageName == "") pageName = "home";
+            this.$ajax.url = "app/pages/" + pageName + ".html?" + params;
+            this.$ajax.generateRequest();
+        },
+        ready: function () {
+            var self = this;
+
+            self.$.ajax.addEventListener('response', function (response) {
+                var links = response.detail.response.head.querySelectorAll("link");
+                for (var i = 0; i <= links.length - 1; i++) {
+                    if (!document.head.innerHTML.contains(links[i].href.toLowerCase())) {
+                        var l = document.createElement('link');
+                        l.rel = 'import';
+                        l.href = links[i].href.toLowerCase();
+                        l.onload = function(){
+                            //console.log("loaded");
+                        };
+                        document.head.appendChild(l);
+                    }
+                }
+                try {
+                    self.async(function () {
+                        var l = document.createElement('div');
+                        l.innerHTML = response.detail.response.body.innerHTML;
+                        self.$.main.innerHtml = "";
+                        self.$main.appendChild(1);
+                    }, 0);
+                } catch (e) {
+                }
+            });
         }
     });
 </script>
