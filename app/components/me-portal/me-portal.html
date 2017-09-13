@@ -6,6 +6,7 @@
 <link rel="import" href="../../components/me-drawer/me-drawer.html" />
 <link rel="import" href="../../components/me-flatiron-director/me-flatiron-director.html" />
 <link rel="import" href="../../components/me-list/me-list-item.html"/>
+<link rel="import" href="../../components/me-card/me-card.html" />
 
 <dom-module id="me-portal">
     <link rel="stylesheet" href="../../../app/css/main.css" />
@@ -27,7 +28,10 @@
                 Right menu here
             </div>
             <div id="main">
-                Main stuff here
+                <me-card head="Welcome!">
+                    This is the Etherton Portal
+                    <p>Unlock your Etherton heritage by visiting our Etherton One Name Study</p>
+                </me-card>
             </div>
         </me-drawer>
         <me-flatiron-director route="{{route}}"></me-flatiron-director>
